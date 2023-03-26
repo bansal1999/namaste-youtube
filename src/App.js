@@ -1,16 +1,34 @@
 import { Provider } from "react-redux";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import store from "./Utils/Store";
 import "./App.css";
 import Head from "./Components/Head";
-import Sidebar from "./Components/Sidebar";
+import Body from "./Components/Body";
+import MainContainer from "./Components/MainContainer";
+import WatchPage from "./Components/WatchPage";
 
+const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <Body />,
+    children: [
+      {
+        path: "/",
+        element: <MainContainer />,
+      },
+      {
+        path: "watch",
+        element: <WatchPage />,
+      },
+    ],
+  },
+]);
 function App() {
   return (
     <Provider store={store}>
       <div>
-        <h1 className="bg-red-900">Namate React</h1>
         <Head />
-        <Sidebar />
+        <RouterProvider router={appRouter} />
       </div>
     </Provider>
   );
